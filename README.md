@@ -18,7 +18,7 @@ Tested on Java 11.
 
 The schema provider is responsible for returning a `Reader` representing the GraphQL SDL. In this example I wanted to provide those schemas from remote servers. As a result, I had to:
 
-1. Make an introspection request to my remote server (both cases uses [Apollo Launchpad](https://launchpad.graphql.com))
+1. Make an introspection request to my remote server (both cases use [Apollo Launchpad](https://launchpad.graphql.com))
 1. Parse the result as JSON and pass the `data` value to graphql-java's [`IntrospectionResultToSchema`](https://github.com/graphql-java/graphql-java/blob/9a2d4e97d582d35784f8687bb72402f92b785cd4/src/main/java/graphql/introspection/IntrospectionResultToSchema.java)
 1. Print the resulting `Document` and then feed the `String` to `StringReader`
 
