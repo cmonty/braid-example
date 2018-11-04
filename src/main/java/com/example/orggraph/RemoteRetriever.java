@@ -15,11 +15,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class RemoteQueryExecutor<C> implements GraphQLRemoteRetriever<C> {
+public class RemoteRetriever<C> implements GraphQLRemoteRetriever<C> {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private final String url;
 
-    RemoteQueryExecutor(String url) {
+    RemoteRetriever(String url) {
         this.url = url;
     }
 

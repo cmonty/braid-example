@@ -43,14 +43,14 @@ public class GraphQLController {
                     .builder()
                     .namespace(USERS)
                     .schemaProvider(usersSchemaProvider)
-                    .remoteRetriever(new RemoteQueryExecutor(USERS_SCHEMA_URL))
+                    .remoteRetriever(new RemoteRetriever(USERS_SCHEMA_URL))
                     .build())
             .schemaSource(
                 QueryExecutorSchemaSource
                     .builder()
                     .namespace(ORDERS)
                     .schemaProvider(ordersSchemaProvider)
-                    .remoteRetriever(new RemoteQueryExecutor(ORDERS_SCHEMA_URL))
+                    .remoteRetriever(new RemoteRetriever(ORDERS_SCHEMA_URL))
                     .links(links)
                     .build())
             .build();
