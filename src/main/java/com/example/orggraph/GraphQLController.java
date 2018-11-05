@@ -28,16 +28,27 @@ public class GraphQLController {
     private final SchemaNamespace ORDERS = SchemaNamespace.of("orders");
     private final String ORDERS_SCHEMA_URL = "https://rrm1vmjxxn.lp.gql.zone/graphql";
 
+    private final SchemaNamespace PAYMENTS = SchemaNamespace.of("payments");
+
     @PostMapping(path="/graphql", consumes="application/json", produces="application/json")
     public @ResponseBody String graphql(@RequestBody GraphQLParameters params) {
         Gson gson = new Gson();
         Supplier<Reader> usersSchemaProvider = () -> new RemoteIntrospection(USERS_SCHEMA_URL).get();
         Supplier<Reader> ordersSchemaProvider = () -> new RemoteIntrospection(ORDERS_SCHEMA_URL).get();
+        Supplier<Reader> paymentsSchemaProvider = () -> new GrpcSchemaProvider(new PaymentClientModule(), new PaymentSchemaModule()).get();
+
         ArrayList<Link> links = new ArrayList();
         links.add(Link.from(ORDERS, "Order", "user").to(USERS, "User").build());
 
         Braid braid = Braid
             .builder()
+            .schemaSource(
+                QueryExecutorSchemaSource
+                    .builder()
+                    .namespace(PAYMENTS)
+                    .schemaProvider(paymentsSchemaProvider)
+                    .remoteRetriever(new GrpcRetriever(new PaymentClientModule(), new PaymentSchemaModule()))
+                    .build())
             .schemaSource(
                 QueryExecutorSchemaSource
                     .builder()

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.orggraph";
+option java_outer_classname = "PaymentProto";
+
+package payment;
+
+// The greeting service definition.
+service PaymentGreeter {
+  // Sends a greeting
+  rpc GetPayment (PaymentRequest) returns (PaymentReply) {}
+}
+
+// The request message containing the payment's id.
+message PaymentRequest {
+  int32 id = 1;
+}
+
+// The response message containing the payment
+message PaymentReply {
+  string amountPaid = 1;
+  string amountOwed = 2;
+  string status = 3;
+}
