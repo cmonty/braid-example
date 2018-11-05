@@ -24,21 +24,16 @@ public class GrpcRetriever<C> implements GraphQLRemoteRetriever<C> {
     this.clientModule = clientModule;
     this.schemaModule = schemaModule;
   }
+  
+  @Override
+  public CompletableFuture<Map<String, Object>> queryGraphQL(ExecutionInput executionInput, C context) {
+    GraphQLSchema schema = Guice.createInjector(new SchemaProviderModule(), clientModule, schemaModule)
+        .getInstance(Key.get(GraphQLSchema.class, Schema.class));
 
-
-	@Override
-	public CompletableFuture<Map<String, Object>> queryGraphQL(ExecutionInput executionInput, C context) {
-    GraphQLSchema schema = Guice.createInjector(
-        new SchemaProviderModule(),
-        clientModule,
-        schemaModule)
-      .getInstance(Key.get(GraphQLSchema.class, Schema.class));
-
-    GraphQL graphql = GraphQL.newGraphQL(schema).build();    
+    GraphQL graphql = GraphQL.newGraphQL(schema).build();
 
     ExecutionResult result = graphql.execute(executionInput);
 
-		return CompletableFuture.completedFuture(result.toSpecification());
-	}
-
+    return CompletableFuture.completedFuture(result.toSpecification());
+  }
 }
