@@ -33,3 +33,9 @@ Once the remote server responds, you can parse the JSON to an Object and return 
 ### Links
 
 To expose types underneath stitched schemas, you can provide a list of "links". You basically tell Braid to expose a field in a top-level query (e.g. `user` nested in `order`) and Braid will make a bulk request to your `users` service.
+
+## Rejoiner
+
+I also added in [`rejoiner`](https://github.com/google/rejoiner) to stitch together a Grpc microserver into the GraphQL API. You can run the `PaymentServer` class to start the Grpc server and you'll notice the `payment` field available in GraphiQL.
+
+Currently, not a fan of the naming on the `input` or `payload` types.
