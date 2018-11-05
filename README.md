@@ -10,7 +10,9 @@ $ ./mvnw spring-boot:run
 
 Tested on Java 11.
 
-## Concepts
+---------------------
+
+## Braid Concepts
 
 `graphql-braid` has a few undocumented concepts, I'll do my best to describe them below.
 
@@ -33,6 +35,8 @@ Once the remote server responds, you can parse the JSON to an Object and return 
 ### Links
 
 To expose types underneath stitched schemas, you can provide a list of "links". You basically tell Braid to expose a field in a top-level query (e.g. `user` nested in `order`) and Braid will make a bulk request to your `users` service.
+
+---------------
 
 ## Rejoiner
 
